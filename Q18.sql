@@ -1,4 +1,4 @@
-select t.depNum, t.depName, t.number from
+select t.depNum, t.depName, t.number Number from
 (
 	select dep.depNum, dep.depName, COUNT(de.depName) as number from tblDependent de
 	join tblEmployee emp on emp.empSSN = de.empSSN

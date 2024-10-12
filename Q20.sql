@@ -1,4 +1,6 @@
-select dep.depNum, dep.depName, sum(wo.workHours) total from tblEmployee emp
-join tblWorksOn wo on emp.empSSN = wo.empSSN
-join tblDepartment dep on dep.depNum = emp.depNum
+select dep.depNum, dep.depName, coalesce(sum(wo.workHours),0) Total from tblDepartment dep
+left join tblProject p on p.depNum = dep.depNum
+left join tblWorksOn wo on p.proNum = wo.proNum
 group by dep.depNum, dep.depName
+
+

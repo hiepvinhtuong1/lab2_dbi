@@ -1,4 +1,4 @@
-select emp.empSSN, emp.empName, count(de.depName) as number from tblEmployee emp
+select emp.empSSN, emp.empName, count(de.depName) as Number from tblEmployee emp
 left join tblDependent de on emp.empSSN = de.empSSN
 group by emp.empSSN, emp.empName
 having count(de.depName) = (

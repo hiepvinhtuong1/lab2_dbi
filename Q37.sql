@@ -1,12 +1,10 @@
-select lo.locName, count(delo.depNum) numbers from tblLocation lo
-join tblDepLocation delo on lo.locNum = delo.locNum
-join tblDepartment dep on delo.depNum = dep.depNum
+select lo.locName, coalesce(count(delo.depNum),0) Number from tblLocation lo
+left join tblDepLocation delo on lo.locNum = delo.locNum
 group by lo.locName
 having count(delo.locNum) = (
-	select min(t1.numbers) from (
-		select lo.locName, count(delo.depNum) numbers from tblLocation lo
-		join tblDepLocation delo on lo.locNum = delo.locNum
-		join tblDepartment dep on delo.depNum = dep.depNum
+	select min(t1.Number) from (
+		select lo.locName, coalesce(count(delo.depNum),0) Number from tblLocation lo
+		left join tblDepLocation delo on lo.locNum = delo.locNum
 		group by lo.locName
 	) as t1
 )

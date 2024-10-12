@@ -1,6 +1,6 @@
-select t1.empSSN, t1.empName, t1.numbers numbers, SUM(wo.workHours) total from (
+select t1.empSSN, t1.empName, t1.numbers numbers, coalesce(SUM(wo.workHours),0) Total from (
 	select emp.empSSN, emp.empName, count(de.depName) numbers from tblEmployee emp
-	join tblDependent de on emp.empSSN = de.empSSN
+	left join tblDependent de on emp.empSSN = de.empSSN
 	group by emp.empSSN, emp.empName
 	having count(de.depName) > 3
 ) as t1
